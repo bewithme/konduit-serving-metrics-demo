@@ -5,16 +5,6 @@ WORKDIR /srv/app
  
 ADD . konduit-serving-metrics-demo
 
-WORKDIR /
-
-RUN mkdir  /skymind
-RUN mkdir  /skymind/maven_repository
-
-RUN  cp -r /srv/app/konduit-serving-metrics-demo/maven_repository  /skymind/maven_repository
-
-RUN  rm -r /srv/app/konduit-serving-metrics-demo/maven_repository
-
-WORKDIR /srv/app
          
 RUN  git clone --single-branch --branch "sa/grafana_demo" https://github.com/KonduitAI/konduit-serving 
 
@@ -28,12 +18,12 @@ RUN  mvn -Plinux  install --settings  settings_aliyun.xml
 
 WORKDIR /srv/app/konduit-serving-metrics-demo/target
 
-RUN unzip konduit-metrics-demo-1.0-SNAPSHOT-bin.zip -A
+RUN unzip konduit-metrics-demo-1.0-SNAPSHOT-bin.zip
 
 
 EXPOSE 9008
 
-CMD ["java","-jar","/srv/app/konduit-serving-metrics-demo/target/konduit-metrics-demo-1.0-SNAPSHOT/konduit-metrics-demo-1.0-SNAPSHOT.jar"]
+#CMD ["java","-jar","/srv/app/konduit-serving-metrics-demo/target/konduit-metrics-demo-1.0-SNAPSHOT/konduit-metrics-demo-1.0-SNAPSHOT.jar"]
 
 
 #nvidia-docker build -t='konduit-metrics-demo:v0.0.1' .
